@@ -6,7 +6,6 @@
 */
 import java.util.*;
 import java.io.*;
-
 public class AFD{
 	
 	/*
@@ -21,7 +20,7 @@ public class AFD{
 	int finalStates[];
 	int[][] transitions;
 	public AFD(String path){
-		Scanner scan = new Scanner("Hola");
+		Scanner scan = new Scanner("");
 		try {
 			scan = new Scanner(new File(path));
 		}catch(Exception e){}
@@ -49,7 +48,7 @@ public class AFD{
 	}
 
 	private int getTransitionNumber(char symbol){
-		System.out.println(Arrays.toString(alphabet)+"abcedario, letra,"+ Character.toString(symbol)+".");
+		//System.out.println(Arrays.toString(alphabet)+"abcedario, letra,"+ Character.toString(symbol)+".");
 		for(int i = 0; i < alphabet.length; i++){
 			if(alphabet[i].charAt(0)==symbol)
 				return i;
@@ -58,7 +57,7 @@ public class AFD{
 	}
 
 	private boolean inFinalState(int state){
-		System.out.print("Estado final"+ state+"final state"+ Arrays.toString(finalStates));
+		//System.out.print("Estado final"+ state+"final state"+ Arrays.toString(finalStates));
 		for(int i = 0; i < finalStates.length; i++){
 			if(finalStates[i]==state)
 				return true;
@@ -97,7 +96,7 @@ public class AFD{
 		por el afd
 	*/
 	public boolean accept(String string){
-		System.out.println(string+"Cuerda a parsear");
+		//System.out.println(string+"Cuerda a parsear");
 		return inFinalState(parserRecursive(1,string));
 	}
 
