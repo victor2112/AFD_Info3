@@ -178,11 +178,16 @@ public class AFN{
 		AFN afn = new AFN(afnName);
 		try {
 			Scanner scanner = new Scanner(new File(ropes));
-			System.out.println("Alfabeto: " + Arrays.toString(afn.alphabet));
-			System.out.println("Cantidad de Estados: " + afn.total);
-			System.out.println("Estados Finales: " + Arrays.toString(afn.finalStates));
-			System.out.format("Transiciones: %s%n", Arrays.deepToString(afn.transitions));
+			System.out.println();
+			System.out.println("               Alfabeto: " + Arrays.toString(afn.alphabet));
+			System.out.println("    Cantidad de Estados: " + afn.total);
+			System.out.println("        Estados Finales: " + Arrays.toString(afn.finalStates));
+			System.out.format("Transiciones con lambda: %s%n", Arrays.deepToString(afn.transitions[0]));
+			for (int i = 0, j = 1; i < afn.alphabet.length; i++){
+				System.out.format("     Transiciones con " + afn.alphabet[i] + ": %s%n", Arrays.deepToString(afn.transitions[j++]));
+			}
 			while(scanner.hasNextLine()){
+				System.out.println();
 				String newRope = scanner.nextLine();
 				System.out.println("Cuerda a evaluar: " + newRope);
 				if(afn.accept(newRope)){
@@ -195,34 +200,37 @@ public class AFN{
 		}	catch(Exception e){
 			System.out.println("Archivo de cuerdas no existe");
 		}
-		System.out.println();
 	}
 
 	public static void iMode(String afnName){
 		AFN afn = new AFN(afnName);
 		Scanner scanner = new Scanner(System.in);
+		System.out.println();
+		System.out.println("               Alfabeto: " + Arrays.toString(afn.alphabet));
+		System.out.println("    Cantidad de Estados: " + afn.total);
+		System.out.println("        Estados Finales: " + Arrays.toString(afn.finalStates));
+		System.out.format("Transiciones con lambda: %s%n", Arrays.deepToString(afn.transitions[0]));
+		for (int i = 0, j = 1; i < afn.alphabet.length; i++){
+			System.out.format("     Transiciones con " + afn.alphabet[i] + ": %s%n", Arrays.deepToString(afn.transitions[j++]));
+		}
 		while(true){
 			try {
-			System.out.println("Alfabeto: " + Arrays.toString(afn.alphabet));
-			System.out.println("Cantidad de Estados: " + afn.total);
-			System.out.println("Estados Finales: " + Arrays.toString(afn.finalStates));
-			System.out.format("Transiciones: %s%n", Arrays.deepToString(afn.transitions));
-			System.out.print("Ingresar cuerda: ");
-			String newRope = scanner.nextLine();
-			if(newRope.length() > 0){
-				if(afn.accept(newRope)){
-					System.out.println("Resultado: Cuerda aceptada!");
-				} else {
-					System.out.println("Resultado: Cuerda rechazada!");
-				}
 				System.out.println();
-			} else{
-				System.exit(0);
-			}
+				System.out.print("Ingresar cuerda: ");
+				String newRope = scanner.nextLine();
+				if(newRope.length() > 0){
+					if(afn.accept(newRope)){
+						System.out.println("Resultado: Cuerda aceptada!");
+					} else {
+						System.out.println("Resultado: Cuerda rechazada!");
+					}
+					System.out.println();
+				} else{
+					System.exit(0);
+				}
 			} catch(Exception e){
 				System.out.println("Resultado: La cuerda no cumple con el alfabeto");
 			}
-			System.out.println();
 		}
 	}
 }
