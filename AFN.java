@@ -103,15 +103,30 @@ public class AFN{
 		//look the places where we can go
 		size = 0;
 		for(int i = 0; i < currentState.length; i++){
-			size += transitions[getTransitionNumber(symbol)][currentState[i]].length;
+			if (symbol == "#".charAt(0)) {
+				size += transitions[0][currentState[i]].length;
+			} else {
+				size += transitions[getTransitionNumber(symbol)][currentState[i]].length;
+			}
+
 		}
 		resp = new int[size];
 		pointer = 0;
 		for(int i = 0; i < currentState.length; i++){
-			int[] temp = transitions[getTransitionNumber(symbol)][currentState[i]];
-			for(int j = 0; j < temp.length; j++){
-				resp[pointer++] = temp[j];
+
+			if (symbol == "#".charAt(0)) {
+				int[] temp = transitions[0][currentState[i]];
+				for(int j = 0; j < temp.length; j++){
+					resp[pointer++] = temp[j];
+				}
+			} else {
+				int[] temp = transitions[getTransitionNumber(symbol)][currentState[i]];
+				for(int j = 0; j < temp.length; j++){
+					resp[pointer++] = temp[j];
+				}
 			}
+
+
 		}
 		//ystem.out.println("Estado"+Arrays.toString(currentState)+"Resultado"+Arrays.toString(resp)+"transicion"+Character.toString(symbol));
 		return resp;
