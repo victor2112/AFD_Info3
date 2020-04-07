@@ -1,7 +1,7 @@
 /*
 	Utilice esta clase para guardar la informacion de su
-	AFN. NO DEBE CAMBIAR LOS NOMBRES DE LA CLASE NI DE LOS 
-	METODOS que ya existen, sin embargo, usted es libre de 
+	AFN. NO DEBE CAMBIAR LOS NOMBRES DE LA CLASE NI DE LOS
+	METODOS que ya existen, sin embargo, usted es libre de
 	agregar los campos y metodos que desee.
 */
 import java.util.*;
@@ -10,7 +10,7 @@ public class AFN{
 
 	/*
 		Implemente el constructor de la clase AFN
-		que recibe como argumento un string que 
+		que recibe como argumento un string que
 		representa el path del archivo que contiene
 		la informacion del AFN (i.e. "Documentos/archivo.AFN").
 		Puede utilizar la estructura de datos que desee
@@ -119,7 +119,7 @@ public class AFN{
 	/*
 		Implemente el metodo accept, que recibe como argumento
 		un String que representa la cuerda a evaluar, y devuelve
-		un boolean dependiendo de si la cuerda es aceptada o no 
+		un boolean dependiendo de si la cuerda es aceptada o no
 		por el AFN. Recuerde lo aprendido en el proyecto 1.
 	*/
 	public boolean accept(String string){
@@ -130,15 +130,84 @@ public class AFN{
 
 	/*
 		El metodo main debe recibir como primer argumento el path
-		donde se encuentra el archivo ".afd", como segundo argumento 
+		donde se encuentra el archivo ".afd", como segundo argumento
 		una bandera ("-f" o "-i"). Si la bandera es "-f", debe recibir
-		como tercer argumento el path del archivo con las cuerdas a 
+		como tercer argumento el path del archivo con las cuerdas a
 		evaluar, y si es "-i", debe empezar a evaluar cuerdas ingresadas
 		por el usuario una a una hasta leer una cuerda vacia (""), en cuyo
 		caso debe terminar. Tiene la libertad de implementar este metodo
-		de la forma que desee. 
+		de la forma que desee.
 	*/
 	public static void main(String[] args) throws Exception{
-		
+		String afnName;
+		String executionMode;
+		String ropes;
+		afnName = args[0];
+		executionMode = args[1];
+		//System.out.println("Modo de ejecucion " + executionMode);
+		if (executionMode.equals("-f")) {
+			ropes = args[2];
+			fMode(afnName, ropes);
+		} else {
+			if(executionMode.equals("-i")) {
+				iMode(afnName);
+			} else {
+				System.out.println("Modo de ejecucion Incorrecto");
+				System.exit(0);
+			}
+		}
+
+	}
+
+	public static void fMode(String afnName, String ropes){
+		AFN afn = new AFN(afnName);
+		try {
+			Scanner scanner = new Scanner(new File(ropes));
+			System.out.println("Alfabeto: " + Arrays.toString(afn.alphabet));
+			System.out.println("Cantidad de Estados: " + afn.total);
+			System.out.println("Estados Finales: " + Arrays.toString(afn.finalStates));
+			System.out.format("Transiciones: %s%n", Arrays.deepToString(afn.transitions));
+			while(scanner.hasNextLine()){
+				String newRope = scanner.nextLine();
+				System.out.println("Cuerda a evaluar: " + newRope);
+				if(afn.accept(newRope)){
+					System.out.println("Resultado: Cuerda aceptada!");
+				} else {
+					System.out.println("Resultado: Cuerda rechazada!");
+				}
+
+			}
+		}	catch(Exception e){
+			System.out.println("Archivo de cuerdas no existe");
+		}
+		System.out.println();
+	}
+
+	public static void iMode(String afnName){
+		AFN afn = new AFN(afnName);
+		Scanner scanner = new Scanner(System.in);
+		while(true){
+			try {
+			System.out.println("Alfabeto: " + Arrays.toString(afn.alphabet));
+			System.out.println("Cantidad de Estados: " + afn.total);
+			System.out.println("Estados Finales: " + Arrays.toString(afn.finalStates));
+			System.out.format("Transiciones: %s%n", Arrays.deepToString(afn.transitions));
+			System.out.print("Ingresar cuerda: ");
+			String newRope = scanner.nextLine();
+			if(newRope.length() > 0){
+				if(afn.accept(newRope)){
+					System.out.println("Resultado: Cuerda aceptada!");
+				} else {
+					System.out.println("Resultado: Cuerda rechazada!");
+				}
+				System.out.println();
+			} else{
+				System.exit(0);
+			}
+			} catch(Exception e){
+				System.out.println("Resultado: La cuerda no cumple con el alfabeto");
+			}
+			System.out.println();
+		}
 	}
 }

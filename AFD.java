@@ -136,16 +136,16 @@ public class AFD{
 		try {
 			Scanner scanner = new Scanner(new File(ropes));
 			System.out.println("Alfabeto: " + Arrays.toString(afd.alphabet));
-			System.out.println("Estados Finales: " + Arrays.toString(afd.finalStates));
 			System.out.println("Cantidad de Estados: " + afd.total);
+			System.out.println("Estados Finales: " + Arrays.toString(afd.finalStates));
 			System.out.format("Transiciones: %s%n", Arrays.deepToString(afd.transitions));
 			while(scanner.hasNextLine()){
 				String newRope = scanner.nextLine();
 				System.out.println("Cuerda a evaluar: " + newRope);
 				if(afd.accept(newRope)){
-					System.out.println("Cuerda aceptada!");
+					System.out.println("Resultado: Cuerda aceptada!");
 				} else {
-					System.out.println("Cuerda rechazada!");
+					System.out.println("Resultado: Cuerda rechazada!");
 				}
 
 			}
@@ -161,26 +161,25 @@ public class AFD{
 		while(true){
 			try {
 			System.out.println("Alfabeto: " + Arrays.toString(afd.alphabet));
-			System.out.println("Estados Finales: " + Arrays.toString(afd.finalStates));
 			System.out.println("Cantidad de Estados: " + afd.total);
+			System.out.println("Estados Finales: " + Arrays.toString(afd.finalStates));
 			System.out.format("Transiciones: %s%n", Arrays.deepToString(afd.transitions));
 			System.out.print("Ingresar cuerda: ");
 			String newRope = scanner.nextLine();
 			if(newRope.length() > 0){
 				if(afd.accept(newRope)){
-					System.out.println("Cuerda aceptada!");
+					System.out.println("Resultado: Cuerda aceptada!");
 				} else {
-					System.out.println("Cuerda rechazada!");
+					System.out.println("Resultado: Cuerda rechazada!");
 				}
 				System.out.println();
 			} else{
 				System.exit(0);
 			}
 			} catch(Exception e){
-				System.out.println("La cuerda no cumple con el alfabeto");
+				System.out.println("Resultado: La cuerda no cumple con el alfabeto");
 			}
 			System.out.println();
 		}
 	}
-
 }
